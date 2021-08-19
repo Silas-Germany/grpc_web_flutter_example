@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc_web.dart';
-import 'echo.pbgrpc.dart';
+import 'health_check.pbgrpc.dart';
 
 void main() => runApp(MyApp());
 
 Future<String> doRemoteCall() async {
-  final channel = GrpcWebClientChannel.xhr(Uri.parse('http://localhost:8080'));
-  final client = EchoServiceClient(channel);
-  return (await client.echo(EchoRequest()..message = 'hello')).message;
+  final channel = GrpcWebClientChannel.xhr(Uri.parse('https://sandbox-api.rev79.app'));
+  final client = HealthClient(channel, options: WebCallOptions(metadata: {'authorization': 'test_user', 'x-api-key': 'test_key'}));
+  return (await client.check(HealthCheckRequest())).status.toString();
 }
 
 class MyApp extends StatelessWidget {

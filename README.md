@@ -8,5 +8,6 @@ The proto definitions can be recompiled with:
 
 ```sh
 $ pub global activate protoc_plugin
-$ protoc --dart_out=grpc:lib/ protos/echo.proto -I protos
+$ protoc --dart_out=grpc:lib/ protos/health_check.proto -I protos -I api-common-protos/
+
 ```
